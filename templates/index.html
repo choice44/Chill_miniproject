@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>칠팀사이트다이거야</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <style>
+        .parallax {
+            /* The image used */
+            background-image: url("https://64.media.tumblr.com/0da4b337db83dc1d3484bbf3113de25e/tumblr_ofqc8qNHep1rzlq9xo1_1280.gifv");
+
+            /* Set a specific height */
+            min-height: 500px;
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .gap {
+            background-color: transparent;
+            height: 500px;
+        }
+    </style>
+    <script>
+        function hey() {
+            // Get the position of the section
+            const section = document.getElementById("team_photo");
+            const sectionPosition = section.offsetTop;
+
+            // Scroll to the section position
+            window.scrollTo({
+                top: sectionPosition,
+                behavior: "smooth"
+            });
+        }
+        function hey2() {
+            // Get the position of the section
+            const section = document.getElementById("team_member");
+            const sectionPosition = section.offsetTop;
+
+            // Scroll to the section position
+            window.scrollTo({
+                top: sectionPosition,
+                behavior: "smooth"
+            });
+        }
+        $(document).ready(function () {
+            show_comment();
+        });
+        function save_comment() {
+            let name = $('#name').val()
+            let comment = $('#comment').val()
+
+            let formData = new FormData();
+            formData.append("name_give", name);
+            formData.append("comment_give", comment);
+
+            fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+                alert(data["msg"]);
+                window.location.reload();
+            });
+        }
+        function show_comment() {
+            fetch('/guestbook').then((res) => res.json()).then((data) => {
+                let rows = data['result']
+                $('#comment-list').empty()
+                rows.forEach((a)=>{
+                    let name = a['name']
+                    let comment = a['comment']
+
+                    let temp_html = `<div class="card">
+                                        <div class="card-body">
+                                            <blockquote class="blockquote mb-0">
+                                                <p>${comment}</p>
+                                                <footer class="blockquote-footer">${name}</footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                    `
+                    $('#comment-list').append(temp_html);
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="parallax">
+        <!--상단헤더-->
+        <header>
+            <img src="https://online.spartacodingclub.kr/v2/assets/icons/logo-active.png" alt="상단로고">
+            <nav>
+                <ul class="menu">
+                    <button onclick="hey()" class="team_main">
+                        <p>팀소개</p>
+                    </button>
+                    <button onclick="hey2()">
+                        <p>팀원소개</p>
+                    </button>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- 메인 페이지 -->
+        <div class="main">
+            <div class="title_txt">
+                <p><span>Chill</span>&nbsp;한 분위기의 여행을 좋아하는,</p>
+                <h1><b>Chill Team</b></h1>
+            </div>
+        </div>
+
+        <div class="gap"></div>
+        <!-- 팀 소개 페이지 (사진)-->
+        <div class="team_intro">
+            <h2 class="team_h" id="team_photo">Chill Team은, 77맞다</h2>
+            <div class="row">
+                <div class="column">
+                    <img src="{{ url_for('static', filename='images/elisa1.jpg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/elisa2.jpg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/elisa3.jpg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/elisa4.jpg') }}" style="width:100%">
+                    <img src="{{ url_for('static', filename='images/elisa5.jpg') }}" style="width:100%">
+                </div>
+                <div class="column">
+                    <img src="{{ url_for('static', filename='images/raon1.JPG') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/raon2.JPG') }}" style="width:100%">
+                    <img src="{{ url_for('static', filename='images/raon3.JPG') }}" style="width:100%">
+                    <img src="{{ url_for('static', filename='images/raon4.JPG') }}" style="width:100%">
+                </div>
+                <div class="column">
+                    <img src="{{ url_for('static', filename='images/raon5.JPG') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/sojin1.jpeg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/sojin2.jpeg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/sojin3.jpg') }}" style="width:100%">
+                </div>
+                <div class="column">
+                    <img src="{{ url_for('static', filename='images/sojin4.jpeg') }}" style="width:100%">
+                    <img src="{{ url_for('static', filename='images/sojin5.jpg') }}" style="width:100%">
+                    <img src="{{ url_for('static', filename='images/won2.jpg') }}"style="width:100%">
+                    <img src="{{ url_for('static', filename='images/won3.jpeg') }}" style="width:100%">
+                </div>
+            </div>
+        </div>
+
+        <!-- 팀원 소개 페이지 -->
+        <section class="comment-area" id="team_member">
+            <div>
+                <h2 class="mem_h">Chiil, Members</h2>
+                <div class="team_member_wrapper">
+                    <ul class="team">
+                        <li class="team-item">
+                            <div class="profile profile_2">
+                                <img src="{{ url_for('static', filename='images/seungwon_profile.jpg') }}">
+                                <div class="profile-contents">
+                                    <h2>최승원 <span>ISTP</span></h2>
+                                    <p>
+                                        안녕하세요. 코딩은 처음이라<br>
+                                        아직 모르는게 너무 많네요.<br>
+                                        앞으로 취업을 목표로 열심히 하는<br>
+                                        캠퍼가 되겠습니다. 화이팅!
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="team-item">
+                            <div class="profile profile_3">
+                                <img src="{{ url_for('static', filename='images/raon_profile.jpg') }}">
+                                <div class="profile-contents">
+                                    <h2>임라온 <span>INTJ</span></h2>
+                                    <p>
+                                        .about_me {<br>
+                                        &nbsp;&nbsp;&nbsp;goal : developer;<br>
+                                        &nbsp;&nbsp;&nbsp;what I want to say : fighting!;<br>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="team-item">
+                            <div class="profile profile_4">
+                                <img src="{{ url_for('static', filename='images/sojin_profile.jpg') }}">
+                                <div class="profile-contents">
+                                    <h2>박소진 <span>INFP</span></h2>
+                                    <p>
+                                        안녕하세요!<br>
+                                        이번 5기에 함께 하게 되어 반갑습니다.<br>
+                                        비전공자라 부족한 점도 많을텐데,<br>
+                                        열심히 따라갈 수 있도록 노력할게요🙂
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="team-item">
+                            <div class="profile profile_5">
+                                <img src="{{ url_for('static', filename='images/ellisa_profile.jpg') }}">
+                                <div class="profile-contents">
+                                    <h2>정엘리사 <span>ISFP</span></h2>
+                                    <p>
+                                        개발자가 되겠다는 목표를 가지고<br>
+                                        내일배움캠프에 참여하게 되었습니다.<br>
+                                        열심히 힘내서 끝이 아닌<br>
+                                        또다른 시작이었으면 좋겠습니다!
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 댓글창 -->
+            <div class="postcomment">
+                <div class="mypost">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" placeholder="url" />
+                        <label for="floatingInput">닉네임</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                            style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">응원댓글</label>
+                    </div>
+                    <button onclick="save_comment()" type="button" class="btn btn-dark">
+                        댓글 남기기
+                    </button>
+                </div>
+                <div class="yourcards" id="comment-list">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>새로운 앨범 너무 멋져요!</p>
+                                <footer class="blockquote-footer">호빵맨</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
