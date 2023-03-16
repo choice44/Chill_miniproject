@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>칠팀사이트다이거야</title>
+    <title>CHILL TEAM</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -43,10 +44,14 @@
         function save_comment() {
             let name = $('#name').val()
             let comment = $('#comment').val()
+            let currentTime = new Date();
+            let options = { timeZone: "Asia/Seoul" };
+            let koreaTime = currentTime.toLocaleString("ko-KR", options);
 
             let formData = new FormData();
             formData.append("name_give", name);
             formData.append("comment_give", comment);
+            formData.append("date_give", koreaTime);
 
             fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
                 alert(data["msg"]);
@@ -57,15 +62,16 @@
             fetch('/guestbook').then((res) => res.json()).then((data) => {
                 let rows = data['result']
                 $('#comment-list').empty()
-                rows.forEach((a) => {
+                rows.reverse().forEach((a) => {
                     let name = a['name']
                     let comment = a['comment']
+                    let date = a['date']
 
                     let temp_html = `<div class="card">
                                         <div class="card-body">
                                             <blockquote class="blockquote mb-0">
                                                 <p>${comment}</p>
-                                                <footer class="blockquote-footer">${name}</footer>
+                                                <footer class="blockquote-footer">${name}<br>${date}</footer>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -74,27 +80,28 @@
                 })
             })
         }
+
     </script>
+
 </head>
 
 <body>
+    <!--헤더 (완료)-->
+    <header>
+        <img src="https://online.spartacodingclub.kr/v2/assets/icons/logo-active.png" alt="상단로고">
+        <nav>
+            <ul class="menu">
+                <button onclick="hey()" class="team_main">
+                    <p>팀소개</p>
+                </button>
+                <button onclick="hey2()">
+                    <p>팀원소개</p>
+                </button>
+            </ul>
+        </nav>
+    </header>
     <div class="parallax">
-        <!--상단헤더-->
-        <header>
-            <img src="https://online.spartacodingclub.kr/v2/assets/icons/logo-active.png" alt="상단로고">
-            <nav>
-                <ul class="menu">
-                    <button onclick="hey()" class="team_main">
-                        <p>팀소개</p>
-                    </button>
-                    <button onclick="hey2()">
-                        <p>팀원소개</p>
-                    </button>
-                </ul>
-            </nav>
-        </header>
-
-        <!-- 메인 페이지 -->
+        <!--메인 (완료)-->
         <div class="main">
             <div class="title_txt">
                 <p><span>Chill</span>&nbsp;한 분위기의 여행을 좋아하는,</p>
@@ -103,39 +110,65 @@
         </div>
 
         <div class="gap"></div>
-        <!-- 팀 소개 페이지 (사진)-->
-        <div class="team_intro">
-            <h2 class="team_h" id="team_photo">Chill Team은, 77맞다</h2>
-            <div class="row">
-                <div class="column">
-                    <img src="{{ url_for('static', filename='images/elisa1.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/elisa2.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/elisa3.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/elisa4.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/elisa5.jpg') }}" style="width:100%">
-                </div>
-                <div class="column">
-                    <img src="{{ url_for('static', filename='images/raon1.JPG') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/raon2.JPG') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/raon3.JPG') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/raon4.JPG') }}" style="width:100%">
-                </div>
-                <div class="column">
-                    <img src="{{ url_for('static', filename='images/raon5.JPG') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/sojin1.jpeg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/sojin2.jpeg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/sojin3.jpg') }}" style="width:100%">
-                </div>
-                <div class="column">
-                    <img src="{{ url_for('static', filename='images/sojin4.jpeg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/sojin5.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/won2.jpg') }}" style="width:100%">
-                    <img src="{{ url_for('static', filename='images/won3.jpeg') }}" style="width:100%">
+        <!-- 팀 소개(사진)-->
+        <div class="team_intro"  id="team_photo">
+            <div class="team_intro_wrapper">
+                <h2 class="team_h">Chill Team 소개</h2>
+                <p class="team_p">낯선 땅이란 없다.</p>
+                <p class="team_p">단지, 그 여행자만이 낯설 뿐이다.</p>
+                <p class="team_p">- 로버트 루이스 스티븐슨 -</p>
+                <h2 class="team_h">Chill Team 은 여행을 사랑하는 사람들이 모였습니다.</h2>
+                <p class="team_p">다음 여행을 생각하는 건 설레는 일입니다.</p>
+                <p class="team_p">이정표이자 목표가 되니까요.</p>
+                <p class="team_p">그래서 우리는,</p>
+                <p class="team_p">개발자가 되기 위한 여행을 떠나보려고 합니다.</p>
+                <h2 class="team_h">Chill Team 의, 발자취</h2>
+            </div>
+        </div>
+        <!-- 슬라이드 1 -->
+        <div class="slider-box">
+            <div class="slider">
+                <input type="radio" name="slide" id="slide1" checked>
+                <input type="radio" name="slide" id="slide2">
+                <input type="radio" name="slide" id="slide3">
+                <input type="radio" name="slide" id="slide4">
+                <input type="radio" name="slide" id="slide5">
+                <input type="radio" name="slide" id="slide6">
+                <input type="radio" name="slide" id="slide7">
+                <input type="radio" name="slide" id="slide8">
+                <input type="radio" name="slide" id="slide9">
+                <input type="radio" name="slide" id="slide10">
+                <input type="radio" name="slide" id="slide11">
+                <ul id="imgholder" class="imgs">
+                    <li><img src="{{ url_for('static', filename='images/elisa1.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/elisa2.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/elisa4.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/elisa5.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/roan1.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/roan3.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/roan4.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/roan5.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/sojin1.jpeg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/sojin3.jpg') }}"></li>
+                    <li><img src="{{ url_for('static', filename='images/sojin5.jpg') }}"></li>
+                </ul>
+                <div class="bullets">
+                    <label for="slide1">&nbsp;</label>
+                    <label for="slide2">&nbsp;</label>
+                    <label for="slide3">&nbsp;</label>
+                    <label for="slide4">&nbsp;</label>
+                    <label for="slide5">&nbsp;</label>
+                    <label for="slide6">&nbsp;</label>
+                    <label for="slide7">&nbsp;</label>
+                    <label for="slide8">&nbsp;</label>
+                    <label for="slide9">&nbsp;</label>
+                    <label for="slide10">&nbsp;</label>
+                    <label for="slide11">&nbsp;</label>
                 </div>
             </div>
         </div>
 
-        <!-- 팀원 소개 페이지 -->
+        <!-- 팀원 소개 (완료)-->
         <section class="comment-area" id="team_member">
             <div>
                 <h2 class="mem_h">Chiil, Members</h2>
@@ -229,7 +262,7 @@
             </div>
         </section>
     </div>
-    <!--하단푸터-->
+    <!--푸터 (완료)-->
     <footer class="footer">
         <div class="p-footer__site-group-list">
             <ul class="p-footer__site-group">
@@ -238,7 +271,8 @@
                 </li>
                 <li class="p-footer__site-group-item"><a href="https://cswcoding.tistory.com/">BLOG</a></li>
                 <li class="p-footer__site-group-item"><a href="https://github.com/choice44">GITHUB</a></li>
-                <li class="p-footer__site-group-item"><a href="https://www.instagram.com/choi_ce44/">INSTAGRAM</a></li>
+                <li class="p-footer__site-group-item"><a href="https://www.instagram.com/choi_ce44/">INSTAGRAM</a>
+                </li>
             </ul>
             <ul class="p-footer__site-group">
                 <li>
@@ -247,13 +281,16 @@
                 <li class="p-footer__site-group-item"><a href="https://velog.io/@ra0n">BLOG</a></li>
                 <li class="p-footer__site-group-item"><a href="https://github.com/R40N">GITHUB</a></li>
                 <li class="p-footer__site-group-item"><a href="ra0n@icloud.com">E-MAIL</a></li>
-                <li class="p-footer__site-group-item"><a href="https://www.instagram.com/xraonism/">INSTAGRAM</a></li>
+                <li class="p-footer__site-group-item"><a href="https://www.instagram.com/xraonism/">INSTAGRAM</a>
+                </li>
             </ul>
             <ul class="p-footer__site-group">
                 <li>
                     <div class="p-footer__site-group-title">박소진</div>
                 </li>
-                <li class="p-footer__site-group-item"><a href="https://right-otter-1b4.notion.site/Sparta-f505fc85ac5145fe9104a6e2abef444d">Notion</a></li>
+                <li class="p-footer__site-group-item"><a
+                        href="https://right-otter-1b4.notion.site/Sparta-f505fc85ac5145fe9104a6e2abef444d">Notion</a>
+                </li>
                 <li class="p-footer__site-group-item"><a href="https://github.com/sojinpark970707">GITHUB</a></li>
                 <li class="p-footer__site-group-item"><a href="psjin977@naver.com">E-MAIL</a></li>
             </ul>
@@ -267,7 +304,8 @@
             </ul>
         </div>
         <address class="p-footer__address">
-            <strong class="p-footer__address__company-name">Chill Team</strong></address>
+            <strong class="p-footer__address__company-name">Chill Team</strong>
+        </address>
     </footer>
 </body>
 

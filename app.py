@@ -15,10 +15,12 @@ def home():
 def mars_post():
     name_receive = request.form['name_give']
     comment_receive = request.form['comment_give']
+    date_receive = request.form['date_give']
 
     doc = {
         'name': name_receive,
-        'comment': comment_receive,    
+        'comment': comment_receive,
+        'date': date_receive[0:24]
     }
     db.team.insert_one(doc)
     

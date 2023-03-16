@@ -2,16 +2,118 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@500&display=swap');
 
 * {
-    font-family: 'Bebas Neue','Noto Sans KR', cursive;
+    font-family: 'Bebas Neue', 'Noto Sans KR', cursive;
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
 }
+*::-webkit-scrollbar {
+    display: none;
+}
 
 a {
     color: #333;
     text-decoration: none;
+}
+/* 헤더 (완료) */
+header {
+    background-color: black;
+    width: 100%;
+    height: 88px;
+    position: fixed;
+    top: 0px;
+    z-index: 9999;
+}
+
+button+button {
+    margin-left: 30px;
+}
+
+header>img {
+    margin: 10px 0px 10px 30px;
+}
+
+.menu {
+    color: aliceblue;
+    position: absolute;
+    top: 25px;
+    right: 300px;
+    display: flex;
+    overflow: visible;
+}
+
+.menu>button {
+    width: 110px;
+    height: 40px;
+    padding-top: 5px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    font-size: 18px;
+    float: left;
+    text-decoration-line: none;
+    overflow: visible;
+    transition: all 0.3s;
+}
+
+.menu>button:hover {
+    background-color: white;
+    color: black;
+    width: 140px;
+    border: 1px solid black;
+    overflow: visible;
+}
+
+.team_main {
+    margin-right: 30px;
+}
+
+/* 메인 (완료) */
+.main {
+    margin-top: 50px;
+}
+
+.title_txt {
+    color: white;
+    top: 0px;
+    left: 2%;
+    padding-top: 15%;
+    animation-name: fade-in;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+}
+
+.title_txt span {
+    font-size: 25px;
+}
+
+.title_txt>p {
+    width: 100%;
+
+    margin-left: 15%;
+    font-size: 20px;
+}
+
+.title_txt>h1 {
+    width: 100%;
+    margin-left: 30%;
+    font-size: 100px;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(150px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* 팀소개페이지(사진) */
@@ -32,12 +134,25 @@ a {
 
 .gap {
     background-color: transparent;
-    height: 500px;
+    height: 350px;
 }
+
+.team_intro_wrapper {
+    padding: 0px auto 100px;
+}
+
 .team_h {
     color: white;
     margin-left: 25%;
     height: 200px;
+    display: flex;
+    align-items: center;
+    margin-top: 80px;
+}
+.team_p {
+    color: white;
+    font-size: 20px;
+    margin-left: 30%;
     display: flex;
     align-items: center;
 }
@@ -46,7 +161,7 @@ a {
     background-color: black;
     height: 100%;
     font-size: 25px;
-    height: 2000px;
+    height: 1200px;
 }
 
 .row {
@@ -57,7 +172,6 @@ a {
     /* IE10 */
     flex-wrap: wrap;
     padding: 0 4px;
-
 }
 
 .column {
@@ -74,26 +188,155 @@ a {
     width: 100%;
 }
 
-/* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
-    .column {
-        -ms-flex: 50%;
-        flex: 50%;
-        max-width: 50%;
-    }
+/* 슬라이드1 */
+.slider-box {
+    background-color: black;
 }
 
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .column {
-        -ms-flex: 100%;
-        flex: 100%;
-        max-width: 100%;
-    }
+.slider{
+    background-color: black;
+    width: 1250px;
+    height: 703px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden; /* 현재 슬라이드 오른쪽에 위치한 나머지 슬라이드 들이 보이지 않도록 가림 */
+}
+.slider input[type=radio]{
+    display: none;
+}
+.slider>ul>li>img {
+    height: 703px;
+    width: auto;
+    object-fit: cover;
+    object-position: center;
+}
+ul.imgs{
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    list-style: none;    
+}
+ul.imgs li{
+    position: absolute;
+    left: 640px;
+    transition-timing-function: ease-out;
+    transition-delay: 1s; /* 새 슬라이드가 이동해 오는 동안 이전 슬라이드 이미지가 배경이 보이도록 지연 */
+
+    padding: 0;
+    margin: 0;
+}
+.bullets{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    z-index: 2;
+}
+.bullets label{
+    display: inline-block;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.55);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+/* 현재 선택된 불릿 배경 흰색으로 구분 표시 */
+.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(5):checked~.bullets>label:nth-child(5){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(6):checked~.bullets>label:nth-child(6){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(7):checked~.bullets>label:nth-child(7){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(8):checked~.bullets>label:nth-child(8){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(9):checked~.bullets>label:nth-child(9){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(10):checked~.bullets>label:nth-child(10){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(11):checked~.bullets>label:nth-child(11){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
 }
 
-/* 팀멤버소개 (완료)*/
+.slider input[type=radio]:nth-child(5):checked~ul.imgs>li:nth-child(5){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(6):checked~ul.imgs>li:nth-child(6){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(7):checked~ul.imgs>li:nth-child(7){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(8):checked~ul.imgs>li:nth-child(8){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(9):checked~ul.imgs>li:nth-child(9){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(10):checked~ul.imgs>li:nth-child(10){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(11):checked~ul.imgs>li:nth-child(11){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+
+
+
+/* 팀원 소개 (완료)*/
 .mem_h {
+    padding-top: 200px;
     color: #fff;
     margin-left: 25%;
 }
@@ -101,6 +344,7 @@ a {
 .team_member_wrapper {
     display: flex;
     height: 80vh;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: black;
@@ -115,7 +359,6 @@ a {
 
 .team-item {
     flex-basis: 300px;
-    flex-shrink: 0;
     margin: 0 4px;
     opacity: 0.4;
     transition: all .4s;
@@ -210,7 +453,7 @@ a {
     margin-top: 0.4em;
 }
 
-/* 댓글창 */
+/* 댓글창 (완료)*/
 .comment-area {
     background-color: black;
 }
@@ -225,9 +468,9 @@ a {
 
 .mypost {
     width: 95%;
-    max-width: 300px;
+    max-width: 400px;
+    height: 300px;
     margin: 20px 20px 20px auto;
-
     box-shadow: 0px 0px 3px 0px white;
     padding: 20px;
 }
@@ -238,7 +481,8 @@ a {
 
 .yourcards {
     width: 95%;
-    max-width: 300px;
+    max-width: 400px;
+    height: 300px;
     margin: auto auto auto 20px;
     overflow: scroll;
 }
@@ -248,113 +492,7 @@ a {
     margin-bottom: 10px;
 }
 
-
-header {
-    background-color: black;
-    width: 100%;
-    height: 88px;
-    position: fixed;
-    top: 0px;
-    
-
-
-}
-
-button + button {
-
-    margin-left: 30px;
-    
-    }
-
-header>img {
-    margin: 10px 0px 10px 30px;
-}
-
-.menu {
-    color: aliceblue;
-    position: absolute;
-    top: 25px;
-    right: 300px;
-    display: flex;
-    overflow: visible;
-}
-
-.menu>button {
-    width: 110px;
-    height: 40px;
-    padding-top: 5px;
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    border-radius: 50px;
-    font-size: 18px;
-    float: left;
-    text-decoration-line: none;
-    overflow: visible;
-    transition: all 0.3s;
-}
-
-.menu>button:hover {
-    background-color: white;
-    color: black;
-    width: 140px;
-    border: 1px solid black;
-    overflow: visible;
-
-}
-
-.main {
-    margin-top: 50px;
-}
-
-
-
-.title_txt {
-    color: white;
-    top: 0px;
-    left: 2%;
-    padding-top: 15%;
-    animation-name: fade-in;
-    animation-duration: 3s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-}
-
-.title_txt span {
-    font-size: 25px;
-}
-
-.title_txt>p {
-    width: 100%;
-    
-    margin-left: 15%;
-    font-size: 20px;
-}
-
-.title_txt>h1 {
-    width: 100%;
-    margin-left: 30%;
-    font-size: 100px;
-}
-
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-        transform: translateY(150px);
-    }
-    100% {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-
-
-.team_main {
-    margin-right: 30px;
-}
-
+/* 푸터 (완료) */
 .footer {
     display: flex;
     flex-direction: column;
@@ -370,7 +508,7 @@ header>img {
 
 @media only screen and (max-width: 640px) {
     .p-footer__site-group-list {
-        flex-direction:column;
+        flex-direction: column;
         padding-bottom: 0
     }
 }
@@ -389,7 +527,7 @@ header>img {
 
 @media only screen and (max-width: 640px) {
     .p-footer__site-group {
-        width:100%;
+        width: 100%;
         padding-bottom: 40px
     }
 }
@@ -413,10 +551,12 @@ header>img {
     color: var(--grey600)
 }
 
-.p-footer__site-group-item>a:active,.p-footer__site-group-item>a:hover {
+.p-footer__site-group-item>a:active,
+.p-footer__site-group-item>a:hover {
     text-decoration: underline;
     cursor: pointer
 }
+
 .p-footer__address {
     color: #8b95a1;
     color: var(--grey500);
