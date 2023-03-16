@@ -6,6 +6,7 @@
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    overflow-x: hidden;
 }
 
 a {
@@ -14,6 +15,25 @@ a {
 }
 
 /* 팀소개페이지(사진) */
+
+.parallax {
+    /* The image used */
+    background-image: url("https://64.media.tumblr.com/0da4b337db83dc1d3484bbf3113de25e/tumblr_ofqc8qNHep1rzlq9xo1_1280.gifv");
+
+    /* Set a specific height */
+    min-height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gap {
+    background-color: transparent;
+    height: 500px;
+}
 .team_h {
     color: white;
     margin-left: 25%;
@@ -220,6 +240,7 @@ a {
     width: 95%;
     max-width: 300px;
     margin: auto auto auto 20px;
+    overflow: scroll;
 }
 
 .yourcards>.card {
@@ -231,11 +252,19 @@ a {
 header {
     background-color: black;
     width: 100%;
+    height: 88px;
     position: fixed;
     top: 0px;
+    
 
 
 }
+
+button + button {
+
+    margin-left: 30px;
+    
+    }
 
 header>img {
     margin: 10px 0px 10px 30px;
@@ -245,29 +274,33 @@ header>img {
     color: aliceblue;
     position: absolute;
     top: 25px;
-    right: 100px;
+    right: 300px;
     display: flex;
-}
-
-.intr {
-    margin-top: 30%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    overflow: visible;
 }
 
 .menu>button {
-    width: 100px;
-    height: 30px;
-    background-color: white;
-
-    color: black;
-    border: 1px solid rgb(96, 91, 91);
+    width: 110px;
+    height: 40px;
+    padding-top: 5px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
     border-radius: 50px;
-    font-size: large;
+    font-size: 18px;
     float: left;
     text-decoration-line: none;
+    overflow: visible;
+    transition: all 0.3s;
+}
+
+.menu>button:hover {
+    background-color: white;
+    color: black;
+    width: 140px;
+    border: 1px solid black;
+    overflow: visible;
+
 }
 
 .main {
@@ -281,16 +314,22 @@ header>img {
     top: 0px;
     left: 2%;
     padding-top: 15%;
+    animation-name: fade-in;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-direction: normal;
 }
+
 .title_txt span {
     font-size: 25px;
 }
+
 .title_txt>p {
     width: 100%;
     
     margin-left: 15%;
     font-size: 20px;
-
 }
 
 .title_txt>h1 {
@@ -299,29 +338,98 @@ header>img {
     font-size: 100px;
 }
 
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(150px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 
 
 .team_main {
     margin-right: 30px;
 }
 
-.intr>ul>button {
-
-    width: 300px;
-    height: 50px;
-    background-color: white;
-
-    color: black;
-    border: 1px solid rgb(96, 91, 91);
-    border-radius: 50px;
-    font-size: large;
-    float: left;
-    text-decoration-line: none;
-
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto 30px auto;
 }
 
+.p-footer__site-group-list {
+    display: flex;
+    padding-bottom: 50px
+}
 
-.intr>ul>button:hover {
-    background-color: #ccc;
-    border: 2px solid rgb(96, 91, 91);
+@media only screen and (max-width: 640px) {
+    .p-footer__site-group-list {
+        flex-direction:column;
+        padding-bottom: 0
+    }
+}
+
+.p-footer__site-group {
+    width: 170px;
+    margin: 0;
+    padding: 0;
+    color: #6b7684;
+    color: var(--grey600);
+    list-style: none;
+    font-size: 15px;
+    line-height: 30px;
+    box-sizing: border-box
+}
+
+@media only screen and (max-width: 640px) {
+    .p-footer__site-group {
+        width:100%;
+        padding-bottom: 40px
+    }
+}
+
+.p-footer__site-group:last-of-type {
+    flex: 1
+}
+
+.p-footer__site-group-title {
+    padding-bottom: 5px;
+    color: #333d4b;
+    color: var(--grey800);
+    font-weight: 700;
+    font-weight: var(--font-weight-bold)
+}
+
+.p-footer__site-group-item>a {
+    display: block;
+    text-decoration: none;
+    color: #6b7684;
+    color: var(--grey600)
+}
+
+.p-footer__site-group-item>a:active,.p-footer__site-group-item>a:hover {
+    text-decoration: underline;
+    cursor: pointer
+}
+.p-footer__address {
+    color: #8b95a1;
+    color: var(--grey500);
+    font-size: 13px;
+    font-style: normal;
+    line-height: 20px;
+    white-space: pre-wrap
+}
+
+.p-footer__address__company-name {
+    display: block;
+    padding-bottom: 16px;
+    color: #333d4b;
+    color: var(--grey800);
+    font-size: 15px
 }
